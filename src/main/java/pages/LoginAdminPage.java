@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginAdminPage extends ParentPage {
+public class LoginAdminPage extends ParentAdminPage {
     Logger logger = Logger.getLogger(getClass());
     public LoginAdminPage(WebDriver webDriver) {
         super(webDriver);

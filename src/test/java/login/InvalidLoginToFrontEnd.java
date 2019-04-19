@@ -30,8 +30,8 @@ public class InvalidLoginToFrontEnd extends ParentTest {
 
     @Test
     public void invalidLogin () {
-        loginPage.login(login, pass);
+        loginFrontEndPage.login(login, pass);
         checkExpectedResult("Arbuzov name should not be displayed",
-                !racesPage.isProfileNameArbuzov());
+                !racesFrontEndPage.isProfileNameArbuzov());
     }
 }

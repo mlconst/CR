@@ -6,9 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends ParentPage{
+public class LoginFrontEndPage extends ParentFrontEndPage {
     Logger logger = Logger.getLogger(getClass());
-    public LoginPage(WebDriver webDriver) {
+    public LoginFrontEndPage(WebDriver webDriver) {
         super(webDriver);
     }
 
@@ -21,8 +21,6 @@ public class LoginPage extends ParentPage{
 
     @FindBy(xpath = ".//a[@class='cr-authorization-btn blue']")
     private WebElement button;
-
-
 
 
     public void openPage() {

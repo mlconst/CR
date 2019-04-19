@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class RacesPage extends ParentPage {
-    public RacesPage(WebDriver webDriver) {
+public class RacesFrontEndPage extends ParentFrontEndPage {
+    public RacesFrontEndPage(WebDriver webDriver) {
         super(webDriver);
     }
 

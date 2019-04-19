@@ -32,7 +32,7 @@ public class InvalidLoginToAdminPanel extends ParentTest {
     public void invalidLoginToAdminPanel () {
         loginAdminPage.login(login, pass);
         checkExpectedResult("Log off button should not be displayed",
-                !adminRacesPage.isLogOffButtonDisplayed());
+                !racesAdminPage.isLogOffButtonDisplayed());
     }
 }
 
