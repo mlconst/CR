@@ -43,7 +43,7 @@ public class CreateRace extends ParentTest {
         checkExpectedResult("Create button is not displayed", racesAdminPage.isCreateButtonInTheTopDisplayed());
 
         racesAdminPage.checkCreatedRace(newRaceName);
-        racesAdminPage.clickOnEditTheParticularRace();
+     //   racesAdminPage.clickOnEditTheParticularRace();
         createNewRacePage.clickOnStartButton();
 
     }

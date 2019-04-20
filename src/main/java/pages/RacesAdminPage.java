@@ -36,6 +36,6 @@ public class RacesAdminPage extends ParentAdminPage {
     public void clickOnEditTheParticularRace() {actionsWithOurElements.clickOnElement(editButton);
     }
 
-    public void checkCreatedRace(String newRaceName) {actionsWithOurElements.scrollToElement(newRaceName);
+    public void checkCreatedRace(String newRaceName) {actionsWithOurElements.findandClickOnEditButton(newRaceName);
     }
 }

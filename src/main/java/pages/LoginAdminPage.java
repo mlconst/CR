@@ -11,13 +11,13 @@ public class LoginAdminPage extends ParentAdminPage {
     public LoginAdminPage(WebDriver webDriver) {
         super(webDriver);
     }
-    @FindBy(xpath = ".//input[@name='UserName']")
+    @FindBy(xpath = ".//input[@name='Email']")
     private WebElement inputLogin;
 
     @FindBy(xpath = ".//input[@id='Password']")
     private WebElement inputPass;
 
-    @FindBy(xpath = ".//input[@value='Log in']")
+    @FindBy(xpath = ".//input[@value='Log In']")
     private WebElement button;
 
 
@@ -25,7 +25,7 @@ public class LoginAdminPage extends ParentAdminPage {
     public void openPage() {
 
         try{
-            webDriver.get("http://176.9.152.43:8003/Account/Login");
+            webDriver.get("https://cryptorunadmin.softermii.co");
             System.out.println("Login page was opened");
         } catch (Exception e) {
             logger.error("Can not open login page + " + e);
