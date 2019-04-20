@@ -3,12 +3,13 @@ package libs;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class ActionsWithOurElements {
     WebDriver webDriver;
@@ -164,12 +165,18 @@ public class ActionsWithOurElements {
     public void findandClickOnEditButton(String raceName) {
         WebElement element = webDriver.findElement(By.xpath("//td[contains(text(),\'" + raceName + "\')]"));
         logger.info(element.isDisplayed() + " was displayed");
-        WebElement parent = (WebElement) ((JavascriptExecutor) webDriver).executeScript(
-                "return arguments[0].parentNode;", element);
-        logger.info(parent.isDisplayed() + " was displayed");
-        WebElement editButton = webDriver.findElement(By.xpath(parent+"//div[@id='Created']"));
-        logger.info(editButton.isDisplayed() + " was find");
-        editButton.click();
+//        WebElement parent = (WebElement) ((JavascriptExecutor) webDriver).executeScript(
+//                "return arguments[0].parentNode;", element);
+
+        WebElement parent = element.findElement(By.xpath("./.."));
+        logger.info(parent.getAttribute("innerHTML"));
+  //      WebElement editButton = parent.findElement(By.xpath("./*"));
+        List<WebElement> editButtons = parent.findElements(By.xpath(".//a"));
+        logger.info(editButtons);
+
+       // logger.info(editButton.isDisplayed() + " was found");
+        editButtons.get(0).click();
+        logger.info(editButtons.get(0) + "editButton is clicked");
 
 
     }
