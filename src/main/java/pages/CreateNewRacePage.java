@@ -24,18 +24,16 @@ public class CreateNewRacePage extends ParentAdminPage{
     @FindBy (id = "select2-SelectedParticipants-results")
     private WebElement listOfCurrencies;
 
-//    @FindBy (xpath = "/html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[1]")
-    @FindBy(xpath = "//*[contains(text(), 'Bitcoin')]")
-    private WebElement bitcoin;
+//    @FindBy (xpath = "/html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[2]")
+//    private WebElement ethereum;
+    private String ethereum = "/html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[2]";
 
-    @FindBy (xpath = "//li[@title='Ethereum [ETH]']")
-    private WebElement ethereum;
+    private String litecoin = "/html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[4]";
 
-    @FindBy (xpath = "//li[@title='Litecoin [LTC]']")
-    private WebElement litecoin;
+    private String IOTA = "/html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[8]";
 
-    @FindBy (xpath = "//li[@title='XRP [XRP]']")
-    private WebElement xpr;
+    private String stellar = "/html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[10]";
+
 
     @FindBy (id = "IsBots")
     private WebElement isBotsCheckBox;
@@ -45,6 +43,15 @@ public class CreateNewRacePage extends ParentAdminPage{
 
     @FindBy (id = "MaxBots")
     private WebElement maxBots;
+
+    @FindBy (id= "WinPool")
+    private WebElement winPoolInput;
+
+    @FindBy (id= "PlacePool")
+    private WebElement placePoolInput;
+
+    @FindBy (id= "ShowPool")
+    private WebElement showPoolInput;
 
     @FindBy (id = "IsMinUsers")
     private WebElement isMinUsersCheckBox;
@@ -64,58 +71,78 @@ public class CreateNewRacePage extends ParentAdminPage{
     @FindBy (xpath = "//input[@value='Start']")
     private  WebElement startButton;
 
-    @FindBy(xpath = "//*[contains(text(), 'Searching...')]")
+    @FindBy(xpath = "//li[@class='select2-results__option loading-results']") ///html[1]/body[1]/span[1]/span[1]/span[1]/ul[1]/li[1]
+
     private WebElement search;
 
     public void enterNewRaceNameInToInput(String raceName) {
-        actionsWithOurElements.enterTextInToElement(inputRaceName, raceName);}
+        actionsWithOurElements.enterTextInToElement(inputRaceName, raceName);
+    }
 
     public void enterRaceDurationTimeInToInput(String raceNameDurationTime) {
-        actionsWithOurElements.enterTextInToElement(inputRaceDuration, raceNameDurationTime);}
+        actionsWithOurElements.enterTextInToElement(inputRaceDuration, raceNameDurationTime);
+    }
 
 
     public void enterBettingDurationTimeInToInput(String bettingDuration) {
-        actionsWithOurElements.enterTextInToElement(inputBettingDuration, bettingDuration);}
+        actionsWithOurElements.enterTextInToElement(inputBettingDuration, bettingDuration);
+    }
 
 
     public void clickOnCurrencies() {actionsWithOurElements.clickOnElement(currencies);}
 
-    public void selectLitecoinFromDD() {actionsWithOurElements.clickOnLitecoinUntilSelected(listOfCurrencies);}
-    public void selectEthereumFromDD() {actionsWithOurElements.clickOnEthereumUntilSelected(listOfCurrencies);}
-    public void selectIOTAFromDD() {actionsWithOurElements.clickOnIOTAUntilSelected(listOfCurrencies); }
-    public void selectStellarFromDD() {actionsWithOurElements.clickOnStellarUntilSelected(listOfCurrencies); }
+    public void selectEthereumFromDD() {actionsWithOurElements.clickOnElementInDD(listOfCurrencies, ethereum); }
+    public void selectLitecoinFromDD() {actionsWithOurElements.clickOnElementInDD(listOfCurrencies, litecoin); }
+    public void selectStellarFromDD() {actionsWithOurElements.clickOnElementInDD(listOfCurrencies, IOTA); }
+    public void selectZCashFromDD() {actionsWithOurElements.clickOnElementInDD(listOfCurrencies, stellar); }
 
-
-    public void tickIsBotsCheckBox() {actionsWithOurElements.clickOnElement(isBotsCheckBox);
+    public void enterWinPoolValue(String winPoolValue){
+        actionsWithOurElements.enterTextInToElement(winPoolInput, winPoolValue);
     }
 
-    public void enterMinNumberOfBots(String minBotsValue) {actionsWithOurElements.enterTextInToElement(minBots, minBotsValue);
+    public void enterPlacePoolValue(String placePoolValue){
+        actionsWithOurElements.enterTextInToElement(placePoolInput, placePoolValue);
     }
 
-    public void enterMaxNumberOfBots(String maxBotsValue) {actionsWithOurElements.enterTextInToElement(maxBots, maxBotsValue);
+    public void enterShowPoolValue(String showPoolValue){
+        actionsWithOurElements.enterTextInToElement(showPoolInput, showPoolValue);
     }
 
-    public void tickIsMinUsers() {actionsWithOurElements.clickOnElement(isMinUsersCheckBox);
-    }
-    public void enterMinWinNumberOfUsers(String winMinNumberOfUsers) {actionsWithOurElements.enterTextInToElement(winMinUsers, winMinNumberOfUsers);
-    }
-
-    public void enterMinPlaceNumberOfUsers(String placeWinMinNumberOfUsers) {actionsWithOurElements.enterTextInToElement(placeMinUsers, placeWinMinNumberOfUsers);
+    public void tickIsBotsCheckBox() {
+        actionsWithOurElements.clickOnElement(isBotsCheckBox);
     }
 
-    public void enterMinShowNumberOfUsers(String showWinMinNumberOfUsers) {actionsWithOurElements.enterTextInToElement(showMinUsers, showWinMinNumberOfUsers);
+    public void enterMinNumberOfBots(String minBotsValue) {
+        actionsWithOurElements.enterTextInToElement(minBots, minBotsValue);
     }
 
-    public void clickOnButtonCreateAtTheButtom (){actionsWithOurElements.clickOnElement(createButtonAtTeBottom);
+    public void enterMaxNumberOfBots(String maxBotsValue) {
+        actionsWithOurElements.enterTextInToElement(maxBots, maxBotsValue);
+    }
+
+    public void tickIsMinUsers() {
+        actionsWithOurElements.clickOnElement(isMinUsersCheckBox);
+    }
+    public void enterMinWinNumberOfUsers(String winMinNumberOfUsers) {
+        actionsWithOurElements.enterTextInToElement(winMinUsers, winMinNumberOfUsers);
+    }
+
+    public void enterMinPlaceNumberOfUsers(String placeWinMinNumberOfUsers) {
+        actionsWithOurElements.enterTextInToElement(placeMinUsers, placeWinMinNumberOfUsers);
+    }
+
+    public void enterMinShowNumberOfUsers(String showWinMinNumberOfUsers) {
+        actionsWithOurElements.enterTextInToElement(showMinUsers, showWinMinNumberOfUsers);
+    }
+
+    public void clickOnButtonCreateAtTheButtom (){
+        actionsWithOurElements.clickOnElement(createButtonAtTeBottom);
 
     }
 
-    public void clickOnStartButton() {actionsWithOurElements.clickOnElement(startButton);
+    public void clickOnStartButton() {
+        actionsWithOurElements.clickOnElement(startButton);
     }
 
-
-
-
-    //   public void clickOnBitcoin() {actionsWithOurElements.clickOnElement(bitcoin);}
 
 }
