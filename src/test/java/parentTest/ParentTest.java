@@ -25,6 +25,8 @@ public class ParentTest {
     protected LoginAdminPage loginAdminPage;
     protected RacesAdminPage racesAdminPage;
     protected CreateNewRacePage createNewRacePage;
+    protected PlayPage playPage;
+    protected ParticularRacePage particularRacePage;
 
     @Before
     public void setUP() {
@@ -38,9 +40,13 @@ public class ParentTest {
         loginAdminPage = new LoginAdminPage(webDriver);
         racesAdminPage = new RacesAdminPage(webDriver);
         createNewRacePage = new CreateNewRacePage(webDriver);
-
+        playPage = new PlayPage(webDriver);
+        particularRacePage = new ParticularRacePage(webDriver);
 
     }
+
+
+
 
     protected void checkExpectedResult(String message, boolean actualResult) {
         Assert.assertEquals(message, true, actualResult);
@@ -74,10 +80,12 @@ public class ParentTest {
 
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
-
-    protected String randomString(){
+    public static final String newRaceName = "Automation_Race_"+randomString();
+    private static String randomString() {
         return RandomStringUtils.randomAlphanumeric(10).toUpperCase();
     }
+
+
 
     @After
     public void quit() {

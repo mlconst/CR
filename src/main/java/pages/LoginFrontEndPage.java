@@ -26,7 +26,7 @@ public class LoginFrontEndPage extends ParentFrontEndPage {
     public void openPage() {
 
         try{
-            webDriver.get("http://176.9.52.177:10081");
+            webDriver.get("http://176.9.52.177:10081/auth");
             System.out.println("Login page was opened");
         } catch (Exception e) {
             logger.error("Can not open login page + " + e);

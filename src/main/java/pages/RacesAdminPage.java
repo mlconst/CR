@@ -17,9 +17,15 @@ public class RacesAdminPage extends ParentAdminPage {
     @FindBy (xpath = "//a[@class='btn btn-success']")
     private  WebElement createButton;
 
-    @FindBy(xpath = "//div[@id='Created']//tr[11]//td[7]//a[1]") //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! need to identify the element
-    private WebElement editButton;
+    private String parentXPath = "./..";
 
+    private String childXPath = ".//a";
+
+    private int indexOfEditButton = 0;
+
+    public String getParticularRaceName (String newRaceName){
+    return "//td[contains(text(),\'" + newRaceName + "\')]";
+    }
 
     public boolean isLogOffButtonDisplayed() {
         return actionsWithOurElements.isElementPresent(logOff);
@@ -33,9 +39,7 @@ public class RacesAdminPage extends ParentAdminPage {
         actionsWithOurElements.clickOnElement(createButton);
     }
 
-    public void clickOnEditTheParticularRace() {actionsWithOurElements.clickOnElement(editButton);
-    }
+    public void clickOnEditButtonOfTheParticularRace(String raceName) {
+    actionsWithOurElements.findAndClickNeededButton(getParticularRaceName(raceName), parentXPath, childXPath, indexOfEditButton); }
 
-    public void checkCreatedRace(String newRaceName) {actionsWithOurElements.findandClickOnEditButton(newRaceName);
-    }
 }
