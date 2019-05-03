@@ -20,7 +20,7 @@ public class MakeABet extends ParentTest {
 //        particularRacePage.clickOnQuickBetButton();
 
 
-        checkExpectedResult("Bet is not recorded", particularRacePage.isPlacedBetdisplayed());
+        checkExpectedResult("Bet is not recorded/placed", particularRacePage.isPlacedBetdisplayed());
 
 
 
