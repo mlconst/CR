@@ -1,7 +1,7 @@
 package Suits;
 
 import createRace.CreateRace;
-import makeAWinBet.MakeAWinBet;
+import makeAWinBet.MakeABet;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
         {
                 CreateRace.class,
-                MakeAWinBet.class
+                MakeABet.class
         }
 )
 

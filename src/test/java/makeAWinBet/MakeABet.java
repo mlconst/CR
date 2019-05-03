@@ -3,7 +3,7 @@ package makeAWinBet;
 import org.junit.Test;
 import parentTest.ParentTest;
 
-public class MakeAWinBet extends ParentTest {
+public class MakeABet extends ParentTest {
 
     public String quikBetValue = "2";
 
