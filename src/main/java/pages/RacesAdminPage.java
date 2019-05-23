@@ -21,6 +21,8 @@ public class RacesAdminPage extends ParentAdminPage {
 
     private String childXPath = ".//a";
 
+    private String childXPath2 = ".//td";
+
     private int indexOfEditButton = 0;
 
     public String getParticularRaceName (String newRaceName){
@@ -42,4 +44,9 @@ public class RacesAdminPage extends ParentAdminPage {
     public void clickOnEditButtonOfTheParticularRace(String raceName) {
     actionsWithOurElements.findAndClickNeededButton(getParticularRaceName(raceName), parentXPath, childXPath, indexOfEditButton); }
 
+    public void clickOnEditButtonOfTheParticularRaceWhenItsStarted(String raceName) {
+        actionsWithOurElements.findAndClickNeededButtonWhenRaceIsStarted(getParticularRaceName(raceName), parentXPath, childXPath2); }
+
+    public void selectRaceAndWaitUntilRaceStatusIsFinished() {actionsWithOurElements.refreshAdminPageUntilTheRaceGetsFinishedStatus();
+    }
 }

@@ -1,10 +1,7 @@
 package Suits;
 
+import checkCountings.CheckCountings;
 import createRace.CreateRace;
-import login.InvalidLoginToAdminPanel;
-import login.InvalidLoginToFrontEnd;
-import login.LoginToAdminPanel;
-import login.LoginToFrontEnd;
 import makeAWinBet.MakeABet;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -12,12 +9,13 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
         {
-                InvalidLoginToAdminPanel.class,
-                InvalidLoginToFrontEnd.class,
-                LoginToAdminPanel.class,
-                LoginToFrontEnd.class,
+//                InvalidLoginToAdminPanel.class,
+//                InvalidLoginToFrontEnd.class,
+//                LoginToAdminPanel.class,
+//                LoginToFrontEndUser1.class,
                 CreateRace.class,
-                MakeABet.class
+                MakeABet.class,
+                CheckCountings.class
         }
 )
 

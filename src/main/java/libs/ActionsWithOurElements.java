@@ -163,6 +163,17 @@ public void refresh(){
 
     }
 
+    public void findAndClickNeededButtonWhenRaceIsStarted(String particularRaceXPath, String parentXPath, String childXPath) {
+
+        wait60.until(ExpectedConditions.elementToBeClickable(By.xpath(particularRaceXPath))) ;
+        WebElement element = webDriver.findElement(By.xpath(particularRaceXPath));
+        logger.info(element.isDisplayed() + " was displayed");
+        WebElement parent = element.findElement(By.xpath(parentXPath));
+        logger.info(parent.getAttribute("innerHTML"));
+        parent.click();
+
+    }
+
     public void findAndClickNeededButton(String particularRaceXPath) {
 
         wait60.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(particularRaceXPath))) ;
@@ -173,4 +184,18 @@ public void refresh(){
     }
 
 
+    public void refreshAdminPageUntilTheRaceGetsFinishedStatus() {
+        boolean displayed = false;
+        do{
+            try{
+                displayed = webDriver.findElement(By.xpath("//dd[contains(text(),'Finished')]")).isDisplayed();
+            } catch (Exception e){
+                webDriver.navigate().refresh();
+            }
+        } while(!displayed);
+    }
+
+    public void selectRaceWhenitsStatusIsFinished(){
+
+    }
 }

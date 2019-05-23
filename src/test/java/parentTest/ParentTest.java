@@ -64,7 +64,21 @@ public class ParentTest {
 
     }
 
-    protected void validLoginToFrontEndPage() throws IOException {
+    protected void validLoginToFrontEndPageUser1() throws IOException {
+        ExcelDriver excelDriver = new ExcelDriver();
+        Map dataForValidLogin = excelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
+        loginFrontEndPage.openPage();
+        loginFrontEndPage.enterTextIntoInputLogin(dataForValidLogin.get("login").toString());
+        loginFrontEndPage.enterTextIntoInputPassword(dataForValidLogin.get("pass").toString());
+        loginFrontEndPage.clickOnEnterButton();
+
+        checkExpectedResult(
+                "Profile name is not Arbuzov",
+                racesFrontEndPage.isProfileNameArbuzov()
+        );
+    }
+
+    protected void validLoginToFrontEndPageUser2() throws IOException {
         ExcelDriver excelDriver = new ExcelDriver();
         Map dataForValidLogin = excelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
         loginFrontEndPage.openPage();

@@ -9,7 +9,7 @@ public class MakeABet extends ParentTest {
 
     @Test
     public void makeAWinBet() throws Exception {
-        validLoginToFrontEndPage();
+        validLoginToFrontEndPageUser1();
         playPage.findAndClickOnAcceptingBets(newRaceName);
         particularRacePage.enterQuickBetValue(quikBetValue);
         particularRacePage.clickOnBetTypeDD();

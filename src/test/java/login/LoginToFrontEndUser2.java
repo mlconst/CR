@@ -5,10 +5,10 @@ import parentTest.ParentTest;
 
 import java.io.IOException;
 
-public class LoginToFrontEnd extends ParentTest {
+public class LoginToFrontEndUser2 extends ParentTest {
     @Test
     public void loginToFrontEndPage() throws IOException {
-    validLoginToFrontEndPage();
+        validLoginToFrontEndPageUser2();
 
     }
 }
