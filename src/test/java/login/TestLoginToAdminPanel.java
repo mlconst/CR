@@ -5,7 +5,7 @@ import parentTest.ParentTest;
 
 import java.io.IOException;
 
-public class LoginToAdminPanel extends ParentTest {
+public class TestLoginToAdminPanel extends ParentTest {
 
     @Test
     public void loginToAdmin() throws IOException {

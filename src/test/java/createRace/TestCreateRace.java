@@ -3,7 +3,7 @@ package createRace;
 import org.junit.Test;
 import parentTest.ParentTest;
 
-public class CreateRace extends ParentTest {
+public class TestCreateRace extends ParentTest {
 
 
     final String raceDuration = "00:01";

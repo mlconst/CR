@@ -45,8 +45,12 @@ public class RacesAdminPage extends ParentAdminPage {
     actionsWithOurElements.findAndClickNeededButton(getParticularRaceName(raceName), parentXPath, childXPath, indexOfEditButton); }
 
     public void clickOnEditButtonOfTheParticularRaceWhenItsStarted(String raceName) {
-        actionsWithOurElements.findAndClickNeededButtonWhenRaceIsStarted(getParticularRaceName(raceName), parentXPath, childXPath2); }
+        actionsWithOurElements.findAndClickNeededButton(getParticularRaceName(raceName), parentXPath, childXPath, indexOfEditButton); }
 
-    public void selectRaceAndWaitUntilRaceStatusIsFinished() {actionsWithOurElements.refreshAdminPageUntilTheRaceGetsFinishedStatus();
+    public void refreshUntilRaceIsFinished() {actionsWithOurElements.refreshAdminPageUntilTheRaceGetsFinishedStatus();
+    }
+
+    public void print(){
+        System.out.println("huinia");
     }
 }

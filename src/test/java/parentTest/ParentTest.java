@@ -27,6 +27,7 @@ public class ParentTest {
     protected CreateNewRacePage createNewRacePage;
     protected PlayPage playPage;
     protected ParticularRacePage particularRacePage;
+    protected RacePageWhenItsFinishedStatus racePageWhenItsFinishedStatus;
 
     @Before
     public void setUP() {
@@ -42,6 +43,7 @@ public class ParentTest {
         createNewRacePage = new CreateNewRacePage(webDriver);
         playPage = new PlayPage(webDriver);
         particularRacePage = new ParticularRacePage(webDriver);
+        racePageWhenItsFinishedStatus = new RacePageWhenItsFinishedStatus(webDriver);
 
     }
 

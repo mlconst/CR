@@ -25,7 +25,7 @@ public class LoginAdminPage extends ParentAdminPage {
     public void openPage() {
 
         try{
-            webDriver.get("https://cryptorunadmin.softermii.co");
+            webDriver.get("http://stage.cryptorunadmin.softermii.co");
             System.out.println("Login page was opened");
         } catch (Exception e) {
             logger.error("Can not open login page + " + e);

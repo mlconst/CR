@@ -1,21 +1,21 @@
 package Suits;
 
-import checkCountings.CheckCountings;
-import createRace.CreateRace;
-import makeAWinBet.MakeABet;
+import checkCalculations.TestCheckCalculations;
+import createRace.TestCreateRace;
+import makeAWinBet.TestMakeABet;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
         {
-//                InvalidLoginToAdminPanel.class,
-//                InvalidLoginToFrontEnd.class,
-//                LoginToAdminPanel.class,
-//                LoginToFrontEndUser1.class,
-                CreateRace.class,
-                MakeABet.class,
-                CheckCountings.class
+//                TestInvalidLoginToAdminPanel.class,
+//                TestInvalidLoginToFrontEnd.class,
+//                TestLoginToAdminPanel.class,
+//                TestLoginToFrontEndUser1.class,
+                TestCreateRace.class,
+                TestMakeABet.class,
+                TestCheckCalculations.class
         }
 )
 

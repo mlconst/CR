@@ -5,7 +5,7 @@ package login;
 
         import java.io.IOException;
 
-public class LoginToFrontEndUser1 extends ParentTest {
+public class TestLoginToFrontEndUser1 extends ParentTest {
     @Test
     public void loginToFrontEndPage() throws IOException {
         validLoginToFrontEndPageUser1();
