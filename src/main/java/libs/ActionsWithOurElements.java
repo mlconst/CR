@@ -52,6 +52,17 @@ public class ActionsWithOurElements {
         }
     }
 
+    public void getText2(WebElement element) {
+        try {
+            wait15.until(ExpectedConditions.elementToBeClickable(element));
+            element.getText();
+            logger.info(element + " Text was gotten");
+            System.out.println(element.getText());
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
     public void clickOnElementInDD(WebElement dropdownList, String element) {
         try {
             wait60.until(ExpectedConditions.elementToBeClickable(dropdownList));
@@ -131,6 +142,12 @@ public class ActionsWithOurElements {
         logger.info("Element is displayed - " + true);
     }
 
+    public String getText(String xPathOfCurrencyName) {
+        String text = webDriver.findElement(By.xpath(xPathOfCurrencyName)).getText();
+        logger.info(text + " element is displayed - " + true);
+        return text;
+    }
+//    String text =  webDriver.findElement(By.xpath("//div[@name='myDiv']")).getText();
 //    public void findAndClickOnEditButton(String raceName) {
 //        WebElement element = webDriver.findElement(By.xpath("//td[contains(text(),\'" + raceName + "\')]"));
 //        logger.info(element.isDisplayed() + " was displayed");
@@ -163,6 +180,21 @@ public void refresh(){
 
     }
 
+    public void findAndClickNeededButtonWhenRaceIsStarted(String particularRaceXPath, String parentXPath) {
+
+        wait60.until(ExpectedConditions.elementToBeClickable(By.xpath(particularRaceXPath))) ;
+        WebElement element = webDriver.findElement(By.xpath(particularRaceXPath));
+        logger.info(element.isDisplayed() + " was displayed");
+        WebElement parent = element.findElement(By.xpath(parentXPath));
+        logger.info(parent.getAttribute("innerHTML"));
+        parent.click();
+//
+//        WebElement neededButton = parent.findElements(By.xpath(childXPath));
+//        logger.info(neededButton);
+//        neededButton.click();
+
+    }
+
     public void findAndClickNeededButton(String particularRaceXPath) {
 
         wait60.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(particularRaceXPath))) ;
@@ -173,4 +205,25 @@ public void refresh(){
     }
 
 
+    public void refreshAdminPageUntilTheRaceGetsFinishedStatus() {
+        boolean displayed = false;
+        do{
+            try{
+                displayed = webDriver.findElement(By.xpath("//dd[contains(text(),'Finished')]")).isDisplayed();
+            } catch (Exception e){
+                webDriver.navigate().refresh();
+            }
+        } while(!displayed);
+    }
+
+    public void selectRaceWhenitsStatusIsFinished(){
+
+    }
+    
+//    public void createCurrenciesList(){
+//        String betType;
+//        if (betType == "Win")
+//
+//        }
+//    }
 }

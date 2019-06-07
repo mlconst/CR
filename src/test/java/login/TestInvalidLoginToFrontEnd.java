@@ -12,11 +12,11 @@ import java.io.InputStream;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class InvalidLoginToAdminPanel extends ParentTest {
+public class TestInvalidLoginToFrontEnd extends ParentTest {
     String login;
     String pass;
 
-    public InvalidLoginToAdminPanel(String login, String pass) {
+    public TestInvalidLoginToFrontEnd(String login, String pass) {
         this.login = login;
         this.pass = pass;
     }
@@ -29,11 +29,9 @@ public class InvalidLoginToAdminPanel extends ParentTest {
     }
 
     @Test
-    public void invalidLoginToAdminPanel () {
-        loginAdminPage.login(login, pass);
-        checkExpectedResult("Log off button should not be displayed",
-                !racesAdminPage.isLogOffButtonDisplayed());
+    public void invalidLogin () {
+        loginFrontEndPage.login(login, pass);
+        checkExpectedResult("Arbuzov name should not be displayed",
+                !racesFrontEndPage.isProfileNameArbuzov());
     }
 }
-
-

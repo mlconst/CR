@@ -27,6 +27,7 @@ public class ParentTest {
     protected CreateNewRacePage createNewRacePage;
     protected PlayPage playPage;
     protected ParticularRacePage particularRacePage;
+    protected RacePageWhenItsFinishedStatus racePageWhenItsFinishedStatus;
 
     @Before
     public void setUP() {
@@ -42,6 +43,7 @@ public class ParentTest {
         createNewRacePage = new CreateNewRacePage(webDriver);
         playPage = new PlayPage(webDriver);
         particularRacePage = new ParticularRacePage(webDriver);
+        racePageWhenItsFinishedStatus = new RacePageWhenItsFinishedStatus(webDriver);
 
     }
 
@@ -64,7 +66,21 @@ public class ParentTest {
 
     }
 
-    protected void validLoginToFrontEndPage() throws IOException {
+    protected void validLoginToFrontEndPageUser1() throws IOException {
+        ExcelDriver excelDriver = new ExcelDriver();
+        Map dataForValidLogin = excelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
+        loginFrontEndPage.openPage();
+        loginFrontEndPage.enterTextIntoInputLogin(dataForValidLogin.get("login").toString());
+        loginFrontEndPage.enterTextIntoInputPassword(dataForValidLogin.get("pass").toString());
+        loginFrontEndPage.clickOnEnterButton();
+
+        checkExpectedResult(
+                "Profile name is not Arbuzov",
+                racesFrontEndPage.isProfileNameArbuzov()
+        );
+    }
+
+    protected void validLoginToFrontEndPageUser2() throws IOException {
         ExcelDriver excelDriver = new ExcelDriver();
         Map dataForValidLogin = excelDriver.getData(configProperties.DATA_FILE(), "validLogOn");
         loginFrontEndPage.openPage();

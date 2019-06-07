@@ -3,10 +3,10 @@ package createRace;
 import org.junit.Test;
 import parentTest.ParentTest;
 
-public class CreateRace extends ParentTest {
+public class TestCreateRace extends ParentTest {
 
 
-    final String raceDuration = "00:10";
+    final String raceDuration = "00:01";
     final String bettingDuration = "00:01";
     final String minBotsValue = "2";
     final String minMaxValue = "3";
