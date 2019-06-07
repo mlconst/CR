@@ -14,7 +14,7 @@ public class TestCheckCalculations extends ParentTest {
         racePageWhenItsFinishedStatus.getSecondCurrencyNameFromXpath();
         racePageWhenItsFinishedStatus.getThirdCurrencyNameFromXpath();
         racePageWhenItsFinishedStatus.getFourthCurrencyNameFromXpath();
-      //  racePageWhenItsFinishedStatus.print();
+        racePageWhenItsFinishedStatus.lala();
 
 
 
