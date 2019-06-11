@@ -8,15 +8,34 @@ public class TestCheckCalculations extends ParentTest {
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("only bulls"); //(newRaceName);
+        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("Automation_Race_FZ89QZIQCF"); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
-        racePageWhenItsFinishedStatus.getFirstCurrencyNameFromXpath();
-        racePageWhenItsFinishedStatus.getSecondCurrencyNameFromXpath();
-        racePageWhenItsFinishedStatus.getThirdCurrencyNameFromXpath();
-        racePageWhenItsFinishedStatus.getFourthCurrencyNameFromXpath();
-        racePageWhenItsFinishedStatus.lala();
+
+//        racePageWhenItsFinishedStatus.print();
+//        racePageWhenItsFinishedStatus.getFourthCurrencyName();
+        racePageWhenItsFinishedStatus.st ();
+
+        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
+        racePageWhenItsFinishedStatus.getFirstCurrencyName();
+
+       // racePageWhenItsFinishedStatus.lala2();
+
+        racePageWhenItsFinishedStatus.getSecondCurrencyWholeString();
+        racePageWhenItsFinishedStatus.getSecondCurrencyName();
 
 
+        racePageWhenItsFinishedStatus.getThirdCurrencyWholeString();
+        racePageWhenItsFinishedStatus.getThirdCurrencyName();
+
+
+        racePageWhenItsFinishedStatus.getFourthCurrencyWholeString();
+        racePageWhenItsFinishedStatus.getFourthCurrencyName();
+
+
+        racePageWhenItsFinishedStatus.getWagerValueWithoutDollarIconUser1();
+
+
+      //  racePageWhenItsFinishedStatus.lala();
 
     }
 }
