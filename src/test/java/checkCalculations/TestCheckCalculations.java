@@ -8,12 +8,13 @@ public class TestCheckCalculations extends ParentTest {
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("Automation_Race_FZ89QZIQCF"); //(newRaceName);
+        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("Automation_Race_5APX0RMSHH"); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
 
 //        racePageWhenItsFinishedStatus.print();
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
-        racePageWhenItsFinishedStatus.st ();
+        racePageWhenItsFinishedStatus.printplaceNumber();
+
 
         racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
         racePageWhenItsFinishedStatus.getFirstCurrencyName();

@@ -112,6 +112,26 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     public String getThirdCurrencyName(){ return actionsWithOurElements.getText(thirdCurrencyOnlyNameString);}
     public String getFourthCurrencyName(){ return actionsWithOurElements.getText(fourthCurrencyOnlyNameString);}
 
+    public String getFirstCurrencyPlaceNumberBeforeName(){
+        String s = getFirstCurrencyWholeString();
+        return s.substring(1, Math.min(s.length(), 2));
+    }
+    public String getSecondCurrencyPlaceNumberBeforeName(){
+        String s = getSecondCurrencyWholeString();
+        return s.substring(1, Math.min(s.length(), 2));
+    }
+    public String getThirdCurrencyPlaceNumberBeforeName(){
+        String s = getThirdCurrencyWholeString();
+        return s.substring(1, Math.min(s.length(), 2));
+    }
+    public String getFourthCurrencyPlaceNumberBeforeName(){
+        String s = getFourthCurrencyWholeString();
+        return s.substring(1, Math.min(s.length(), 2));
+    }
+//    public String getFifthCurrencyPlaceNumberBeforeName(){
+//        String s = getFifthCurrencyWholeString();
+//        return s.substring(1, Math.min(s.length(), 2));
+//    }
 
 
 
