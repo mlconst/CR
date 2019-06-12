@@ -29,6 +29,7 @@ public class ParentTest {
     protected ParticularRacePage particularRacePage;
     protected RacePageWhenItsFinishedStatus racePageWhenItsFinishedStatus;
 
+
     @Before
     public void setUP() {
         File file = new File("./src/drivers/chromedriver.exe");
@@ -44,6 +45,8 @@ public class ParentTest {
         playPage = new PlayPage(webDriver);
         particularRacePage = new ParticularRacePage(webDriver);
         racePageWhenItsFinishedStatus = new RacePageWhenItsFinishedStatus(webDriver);
+
+
 
     }
 
@@ -100,6 +103,7 @@ public class ParentTest {
     private static String randomString() {
         return RandomStringUtils.randomAlphanumeric(10).toUpperCase();
     }
+
 
 
 

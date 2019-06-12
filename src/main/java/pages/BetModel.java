@@ -5,5 +5,6 @@ public class BetModel {
     public String BETTYPE;
     public double PAYOUT;
     public String CURRENCYNAME;
+    public double CHECKPAYOUT;
 
 }

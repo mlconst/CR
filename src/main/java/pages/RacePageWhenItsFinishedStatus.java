@@ -4,9 +4,10 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import java.util.*;
 
-public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
+import java.util.List;
+
+public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     public RacePageWhenItsFinishedStatus(WebDriver webDriver) {
         super(webDriver);
     }
@@ -23,7 +24,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     String fourthCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[24]/a[1]";
 
     String xpathOfAllBetTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
-    String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placements')]";
+    String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placement')]";
 
 //    public void print(){
 //        System.out.println(getCurrencyTextUser1 ());
@@ -82,7 +83,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 
     public void getBetModelList(){
         List<WebElement> ListOfAllTableValues = actionsWithOurElements.getElements(xpathOfAllBetTableValues);
-        List<BetModel> BetModelList = new ArrayList<>();
+
 
         for ( WebElement element : ListOfAllTableValues) {
             BetModel betModel = new BetModel();
@@ -90,7 +91,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
             betModel.PAYOUT = Double.parseDouble(element.findElement(By.xpath(".//td[4]")).getText().replaceAll("\\$",""));
             betModel.BETTYPE = element.findElement(By.xpath(".//td[3]")).getText();
             betModel.CURRENCYNAME = element.findElement(By.xpath(".//td[5]/a[1]")).getText();
-            BetModelList.add(betModel);
+            betModelList.add(betModel);
             logger.info("wager = " + betModel.WAGER);
             logger.info("Payout = " + betModel.PAYOUT);
             logger.info("BetType = " + betModel.BETTYPE);
@@ -100,18 +101,119 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 
     public void getPlacementList(){
         List<WebElement> ListOfPlacementElements = actionsWithOurElements.getElements(xpathOfAllPlacementTableValues);
-        List<CurrenciesModel> CurrenciesModels = new ArrayList<>();
+
 
         for ( WebElement element : ListOfPlacementElements) {
             CurrenciesModel currenciesModel = new CurrenciesModel();
-            currenciesModel.PLACE = Integer.parseInt(element.findElement(By.xpath(".//span[contains(@class, 'placement-place')]")).getText().replaceAll("\\#",""));
+            String getString = element.findElement(By.xpath(".//span[contains(@class, 'placement-place')]")).getText();
+            currenciesModel.PLACE = Integer.parseInt(getString.replaceAll("\\# ",""));
             currenciesModel.SYMBOL = element.findElement(By.xpath(".//a[1]")).getText();
-            CurrenciesModels.add(currenciesModel);
+            currenciesModels.add(currenciesModel);
 
             logger.info("PLACE = " + currenciesModel.PLACE);
             logger.info("SYMBOL = " + currenciesModel.SYMBOL);
         }
     }
+
+    public boolean winBetsCalculations(){
+
+        for ( BetModel bet : betModelList) {
+            calculatePayout(bet);
+            if (bet.PAYOUT!= bet.CHECKPAYOUT){
+                return false;
+            }
+
+        }
+
+        return true;
+
+    }
+
+
+    
+    
+    public boolean checkBet(CurrenciesModel winner, BetModel bet){
+        return false;
+    }
+
+
+
+    public double calculateOdds(CurrenciesModel winner, BetModel bet)
+    {
+//        var winnerIds = winners.Select(x => (int?)x.Id);
+//        if (winnerIds.Contains(Participant?.Id))
+//        {
+//            var bookmakerPercent = (1 - race.BookmakerPercent / 100);
+//            var grossPool = race.GetPool(betType);
+//            var securityPool = raceBets.Where(b => b.Type == betType && winnerIds.Contains(b.Participant?.Id)).Sum(b => b.Wager);
+//            var netPool = grossPool * bookmakerPercent - securityPool;
+//            var odd = netPool / securityPool;
+//            return odd / ((int)betType + 1);
+//        }
+
+        return 0;
+    }
+
+
+    public void calculatePayout(BetModel bet) {
+        List<CurrenciesModel> winners = currenciesModels.subList(0, 0);
+        List<CurrenciesModel> losers = currenciesModels.subList(1, currenciesModels.size() - 1);
+        Object string;
+//        if (Stream.of(winners).anyMatch(string::contains));
+
+
+        for (CurrenciesModel winner : winners) {
+
+
+//        if ((!winners.anyMatch(g => g.anyMatch(x => x.RaceBets.anyMatch(b => b.Type == this.Type))))
+//               && groupedParticipants.Count() > ((int)this.Type + 1))
+            if (checkBet(winner, bet)) {
+
+                winners = currenciesModels.subList(1, 1);
+                losers = currenciesModels.subList(2, currenciesModels.size() - 1);
+
+            }
+            if (bet.BETTYPE == "Win") {
+//            if ((!winners.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
+//                   && groupedParticipants.Count() > ((int)this.Type + 2))
+                if (checkBet(winner, bet)) {
+                    {
+                        winners = currenciesModels.subList(2, 2);
+                        losers = currenciesModels.subList(3, currenciesModels.size() - 1);
+                    }
+                }
+
+
+//        var groupedParticipants = orderedParticipants
+//                .GroupBy(x => x.Place)
+//               .OrderBy(g => g.Key);
+
+//        var winnersGroup = groupedParticipants.Take((int)this.Type + 1);
+//        var losersGroup = groupedParticipants.Skip((int)this.Type + 1);
+
+
+                if (true)
+
+//        if ((!winners.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))) || // no winning bet or
+//        (losers.Count() == 0) ||
+//                (!losers.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))))// no losing bet
+                {
+                    bet.CHECKPAYOUT = bet.WAGER;
+                } else {
+//            var winners = winners.SelectMany(g => g.ToList());
+                    double calculatedOdd = calculateOdds(winner, bet);
+
+                    if (calculatedOdd > 0) {
+                        bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
+
+
+                    } else {
+
+                        bet.CHECKPAYOUT = 0;
+                    }
+                }
+
+            }
 
 
 //        System.out.println(getPayoutValueUser101());
@@ -122,10 +224,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 //    }
 
 
-
-
-
-    //public String getTextNameCurrencyOfUser1(){return actionsWithOurElements.getText(xpathOfCurrencyUser1);
+            //public String getTextNameCurrencyOfUser1(){return actionsWithOurElements.getText(xpathOfCurrencyUser1);
 
 //    public void lala2 (){
 //        System.out.println(getFirstCurrencyPercents());
@@ -138,9 +237,8 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 //    }
 
 
-
-
-
-   // String getFirstCurrencyPercentsrtr = getFirstCurrencyWholeString();
-    // String str = getFirstCurrencyPercents.substring(getFirstCurrencyPercents.lastIndexOf("(") + 1, getFirstCurrencyPercents.indexOf(")"));
+            // String getFirstCurrencyPercentsrtr = getFirstCurrencyWholeString();
+            // String str = getFirstCurrencyPercents.substring(getFirstCurrencyPercents.lastIndexOf("(") + 1, getFirstCurrencyPercents.indexOf(")"));
+        }
+    }
 }

@@ -15,6 +15,8 @@ public class TestCheckCalculations extends ParentTest {
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
         racePageWhenItsFinishedStatus.getBetModelList();
         racePageWhenItsFinishedStatus.getPlacementList();
+//        racePageWhenItsFinishedStatus.winBetsCalculations();
+        checkExpectedResult("Calculations for win bets ar failed ", racePageWhenItsFinishedStatus.winBetsCalculations());
 
 //
 //        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
