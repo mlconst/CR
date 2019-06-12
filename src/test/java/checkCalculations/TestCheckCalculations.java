@@ -13,7 +13,8 @@ public class TestCheckCalculations extends ParentTest {
 
 //        racePageWhenItsFinishedStatus.print();
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
-        racePageWhenItsFinishedStatus.getAllTableValues();
+        racePageWhenItsFinishedStatus.getBetModelList();
+        racePageWhenItsFinishedStatus.getPlacementList();
 
 //
 //        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
