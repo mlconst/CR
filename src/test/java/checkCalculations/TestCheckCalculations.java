@@ -8,14 +8,15 @@ public class TestCheckCalculations extends ParentTest {
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("Automation_Race_U5TMIYEYBM"); //(newRaceName);
+        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted(newRaceName); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
 
 //        racePageWhenItsFinishedStatus.print();
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
         racePageWhenItsFinishedStatus.getBetModelList();
         racePageWhenItsFinishedStatus.getPlacementList();
-        racePageWhenItsFinishedStatus.winBetsCalculations();
+//        racePageWhenItsFinishedStatus.winBetsCalculations();
+        checkExpectedResult("Calculations for win bets ar failed ", racePageWhenItsFinishedStatus.winBetsCalculations());
 
 //
 //        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();

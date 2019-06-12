@@ -4,9 +4,10 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import java.util.*;
 
-public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
+import java.util.List;
+
+public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     public RacePageWhenItsFinishedStatus(WebDriver webDriver) {
         super(webDriver);
     }
@@ -114,102 +115,105 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
         }
     }
 
-    public void winBetsCalculations(){
+    public boolean winBetsCalculations(){
 
         for ( BetModel bet : betModelList) {
-            CalculatePayout(bet);
-
+            calculatePayout(bet);
+            if (bet.PAYOUT!= bet.CHECKPAYOUT){
+                return false;
+            }
 
         }
+
+        return true;
 
     }
 
 
-
-
-    public void CalculatePayout(BetModel bet)
-    {
-        var groupedParticipants = orderedParticipants
-                .GroupBy(x => x.Place)
-               .OrderBy(g => g.Key);
-
-        var winnersGroup = groupedParticipants.Take((int)this.Type + 1);
-        var losersGroup = groupedParticipants.Skip((int)this.Type + 1);
-
-        if ((!winnersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
-               && groupedParticipants.Count() > ((int)this.Type + 1))
-        {
-            winnersGroup = groupedParticipants.Skip((int)this.Type + 1).Take(1);
-            losersGroup = groupedParticipants.Skip((int)this.Type + 1 + 1);
-        }
-
-        if (this.Type == BetType.Win)
-        {
-            if ((!winnersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
-                   && groupedParticipants.Count() > ((int)this.Type + 2))
-            {
-                winnersGroup = groupedParticipants.Skip((int)this.Type + 2).Take(1);
-                losersGroup = groupedParticipants.Skip((int)this.Type + 2 + 1);
-            }
-        }
-
-        if ((!winnersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))) || // no winning bet or
-        (losersGroup.Count() == 0) ||
-                (!losersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))))// no losing bet
-        {
-            if (debug)
-                Debug.WriteLine($"CalculatePayout - {this.Type}, {this.User?.UserName}{User?.Id}, - Refund - Payout = {FullWager}");
-            else
-                Refund();
-        }
-           else
-        {
-            var winners = winnersGroup.SelectMany(g => g.ToList());
-            var calculatedOdd = CalculateOdds(Race, Type, Race.Bets, winners);
-
-            if (calculatedOdd > 0)
-            {
-                var payout = calculatedOdd * FullWager + FullWager;
-                if (debug)
-                {
-                    Debug.WriteLine($"CalculatePayout - {this.Type}, {this.User.UserName}{User?.Id}, - Payout = {payout}");
-                }
-                else
-                {
-                    User.AddPayout(Race, payout);
-                    Payout = payout;
-                }
-            }
-            else
-            {
-                if (debug)
-                    Debug.WriteLine($"CalculatePayout - {this.Type}, {this.User.UserName}{User?.Id}, - Payout = 0");
-                else
-                    Payout = 0;
-            }
-        }
-
-        await NotifyUser();
+    
+    
+    public boolean checkBet(CurrenciesModel winner, BetModel bet){
+        return false;
     }
 
 
 
-
-    public virtual decimal CalculateOdds(Race race, BetType betType, IEnumerable<Bet> raceBets, IEnumerable<Participant> winners)
+    public double calculateOdds(CurrenciesModel winner, BetModel bet)
     {
-        var winnerIds = winners.Select(x => (int?)x.Id);
-        if (winnerIds.Contains(Participant?.Id))
-        {
-            var bookmakerPercent = (1 - race.BookmakerPercent / 100);
-            var grossPool = race.GetPool(betType);
-            var securityPool = raceBets.Where(b => b.Type == betType && winnerIds.Contains(b.Participant?.Id)).Sum(b => b.Wager);
-            var netPool = grossPool * bookmakerPercent - securityPool;
-            var odd = netPool / securityPool;
-            return odd / ((int)betType + 1);
-        }
+//        var winnerIds = winners.Select(x => (int?)x.Id);
+//        if (winnerIds.Contains(Participant?.Id))
+//        {
+//            var bookmakerPercent = (1 - race.BookmakerPercent / 100);
+//            var grossPool = race.GetPool(betType);
+//            var securityPool = raceBets.Where(b => b.Type == betType && winnerIds.Contains(b.Participant?.Id)).Sum(b => b.Wager);
+//            var netPool = grossPool * bookmakerPercent - securityPool;
+//            var odd = netPool / securityPool;
+//            return odd / ((int)betType + 1);
+//        }
 
         return 0;
     }
+
+
+    public void calculatePayout(BetModel bet) {
+        List<CurrenciesModel> winners = currenciesModels.subList(0, 0);
+        List<CurrenciesModel> losers = currenciesModels.subList(1, currenciesModels.size() - 1);
+        Object string;
+//        if (Stream.of(winners).anyMatch(string::contains));
+
+
+        for (CurrenciesModel winner : winners) {
+
+
+//        if ((!winners.anyMatch(g => g.anyMatch(x => x.RaceBets.anyMatch(b => b.Type == this.Type))))
+//               && groupedParticipants.Count() > ((int)this.Type + 1))
+            if (checkBet(winner, bet)) {
+
+                winners = currenciesModels.subList(1, 1);
+                losers = currenciesModels.subList(2, currenciesModels.size() - 1);
+
+            }
+            if (bet.BETTYPE == "Win") {
+//            if ((!winners.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
+//                   && groupedParticipants.Count() > ((int)this.Type + 2))
+                if (checkBet(winner, bet)) {
+                    {
+                        winners = currenciesModels.subList(2, 2);
+                        losers = currenciesModels.subList(3, currenciesModels.size() - 1);
+                    }
+                }
+
+
+//        var groupedParticipants = orderedParticipants
+//                .GroupBy(x => x.Place)
+//               .OrderBy(g => g.Key);
+
+//        var winnersGroup = groupedParticipants.Take((int)this.Type + 1);
+//        var losersGroup = groupedParticipants.Skip((int)this.Type + 1);
+
+
+                if (true)
+
+//        if ((!winners.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))) || // no winning bet or
+//        (losers.Count() == 0) ||
+//                (!losers.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))))// no losing bet
+                {
+                    bet.CHECKPAYOUT = bet.WAGER;
+                } else {
+//            var winners = winners.SelectMany(g => g.ToList());
+                    double calculatedOdd = calculateOdds(winner, bet);
+
+                    if (calculatedOdd > 0) {
+                        bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
+
+
+                    } else {
+
+                        bet.CHECKPAYOUT = 0;
+                    }
+                }
+
+            }
 
 
 //        System.out.println(getPayoutValueUser101());
@@ -220,10 +224,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 //    }
 
 
-
-
-
-    //public String getTextNameCurrencyOfUser1(){return actionsWithOurElements.getText(xpathOfCurrencyUser1);
+            //public String getTextNameCurrencyOfUser1(){return actionsWithOurElements.getText(xpathOfCurrencyUser1);
 
 //    public void lala2 (){
 //        System.out.println(getFirstCurrencyPercents());
@@ -236,9 +237,8 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 //    }
 
 
-
-
-
-   // String getFirstCurrencyPercentsrtr = getFirstCurrencyWholeString();
-    // String str = getFirstCurrencyPercents.substring(getFirstCurrencyPercents.lastIndexOf("(") + 1, getFirstCurrencyPercents.indexOf(")"));
+            // String getFirstCurrencyPercentsrtr = getFirstCurrencyWholeString();
+            // String str = getFirstCurrencyPercents.substring(getFirstCurrencyPercents.lastIndexOf("(") + 1, getFirstCurrencyPercents.indexOf(")"));
+        }
+    }
 }
