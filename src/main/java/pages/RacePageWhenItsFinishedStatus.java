@@ -1,7 +1,11 @@
 package pages;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     public RacePageWhenItsFinishedStatus(WebDriver webDriver) {
@@ -42,6 +46,8 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     String xpathOfWagerUser9 = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr[9]/td[2]";
     String xpathOfWagerUser10 = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr[10]/td[2]";
 
+
+    String xpathOfAllTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
 
     String xpathOfBetTypeUser1 = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr[1]/td[3]";
     String xpathOfBetTypeUser2 = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr[2]/td[3]";
@@ -91,9 +97,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 //        return actionsWithOurElements.getText(xpathOfUser4);
 //}
 
-    public String getFirstCurrencyWholeString(){
-        return actionsWithOurElements.getText(firstCurrencyWholeString);
-    }
+    public String getFirstCurrencyWholeString(){ return actionsWithOurElements.getText(firstCurrencyWholeString); }
     public String getSecondCurrencyWholeString(){
         return actionsWithOurElements.getText(secondCurrencyWholeString);
     }
@@ -111,6 +115,15 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     }
     public String getThirdCurrencyName(){ return actionsWithOurElements.getText(thirdCurrencyOnlyNameString);}
     public String getFourthCurrencyName(){ return actionsWithOurElements.getText(fourthCurrencyOnlyNameString);}
+
+
+    public String getNameOfUser1(){return actionsWithOurElements.getText(xpathOfNameUser1); }
+    public String getNameOfUser2(){return actionsWithOurElements.getText(xpathOfNameUser2); }
+    public String getNameOfUser3(){return actionsWithOurElements.getText(xpathOfNameUser3); }
+    public String getNameOfUser4(){return actionsWithOurElements.getText(xpathOfNameUser4); }
+    public String getNameOfUser5(){return actionsWithOurElements.getText(xpathOfNameUser5); }
+    public String getNameOfUser6(){return actionsWithOurElements.getText(xpathOfNameUser6); }
+
 
     public String getFirstCurrencyPlaceNumberBeforeName(){
         String s = getFirstCurrencyWholeString();
@@ -257,6 +270,31 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     public String getBetTypeTextUser8(){ return actionsWithOurElements.getText(xpathOfBetTypeUser8); }
     public String getBetTypeTextUser9(){ return actionsWithOurElements.getText(xpathOfBetTypeUser9); }
     public String getBetTypeTextUser10(){ return actionsWithOurElements.getText(xpathOfBetTypeUser10); }
+
+
+    public void getAllTableValues(){
+        List<WebElement> ListOfAllTableValues = actionsWithOurElements.getElements(xpathOfAllTableValues);
+
+
+        for ( WebElement element : ListOfAllTableValues) {
+
+            BetModel betModel = new BetModel();
+//            betModel.WAGER = Double.parseDouble(element.findElement(By.xpath(".//td[2]")).getText());
+//            betModel.PAYOUT = Double.parseDouble(element.findElement(By.xpath(".//td[4]")).getText());
+            betModel.WAGER = element.findElement(By.xpath(".//td[2]")).getText();
+            betModel.PAYOUT = element.findElement(By.xpath(".//td[4]")).getText();
+            betModel.BETTYPE = element.findElement(By.xpath(".//td[3]")).getText();
+            betModel.CURRENCYNAME = element.findElement(By.xpath(".//td[5]/a[1]")).getText();
+            logger.info("wager = " + betModel.WAGER);
+            logger.info("Payout = " + betModel.PAYOUT);
+            logger.info("BetType = " + betModel.BETTYPE);
+            logger.info("Currency = " + betModel.CURRENCYNAME);
+
+        } {
+
+        }
+    }
+
 
 
 

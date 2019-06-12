@@ -147,6 +147,12 @@ public class ActionsWithOurElements {
         logger.info(text + " element is displayed - " + true);
         return text;
     }
+
+//    public String getElements(String xPathOfCurrencyName) {
+//        String text = webDriver.findElements(By.xpath(xPathOfCurrencyName)).getText();
+//        logger.info(text + " element is displayed - " + true);
+//        return text;
+//    }
 //    String text =  webDriver.findElement(By.xpath("//div[@name='myDiv']")).getText();
 //    public void findAndClickOnEditButton(String raceName) {
 //        WebElement element = webDriver.findElement(By.xpath("//td[contains(text(),\'" + raceName + "\')]"));
@@ -219,7 +225,14 @@ public void refresh(){
     public void selectRaceWhenitsStatusIsFinished(){
 
     }
-    
+
+    public List<WebElement> getElements(String xpathOfAllTableValues) {
+            List<WebElement> ListOfAllTableValues = webDriver.findElements(By.xpath(xpathOfAllTableValues));
+            logger.info(ListOfAllTableValues + " element is displayed - " + true);
+            return ListOfAllTableValues;
+        }
+
+
 //    public void createCurrenciesList(){
 //        String betType;
 //        if (betType == "Win")
