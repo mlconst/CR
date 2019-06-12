@@ -8,35 +8,39 @@ public class TestCheckCalculations extends ParentTest {
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("Automation_Race_5APX0RMSHH"); //(newRaceName);
+        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted(newRaceName); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
 
 //        racePageWhenItsFinishedStatus.print();
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
-        racePageWhenItsFinishedStatus.printplaceNumber();
+        racePageWhenItsFinishedStatus.getAllTableValues();
 
-
-        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
-        racePageWhenItsFinishedStatus.getFirstCurrencyName();
-
-       // racePageWhenItsFinishedStatus.lala2();
-
-        racePageWhenItsFinishedStatus.getSecondCurrencyWholeString();
-        racePageWhenItsFinishedStatus.getSecondCurrencyName();
-
-
-        racePageWhenItsFinishedStatus.getThirdCurrencyWholeString();
-        racePageWhenItsFinishedStatus.getThirdCurrencyName();
-
-
-        racePageWhenItsFinishedStatus.getFourthCurrencyWholeString();
-        racePageWhenItsFinishedStatus.getFourthCurrencyName();
-
-
-        racePageWhenItsFinishedStatus.getWagerValueWithoutDollarIconUser1();
+//
+//        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
+//        racePageWhenItsFinishedStatus.getFirstCurrencyName();
+//
+//       // racePageWhenItsFinishedStatus.lala2();
+//
+//        racePageWhenItsFinishedStatus.getSecondCurrencyWholeString();
+//        racePageWhenItsFinishedStatus.getSecondCurrencyName();
+//
+//
+//        racePageWhenItsFinishedStatus.getThirdCurrencyWholeString();
+//        racePageWhenItsFinishedStatus.getThirdCurrencyName();
+//
+//
+//        racePageWhenItsFinishedStatus.getFourthCurrencyWholeString();
+//        racePageWhenItsFinishedStatus.getFourthCurrencyName();
+//
+//
+//        racePageWhenItsFinishedStatus.getWagerValueWithoutDollarIconUser1();
 
 
       //  racePageWhenItsFinishedStatus.lala();
+
+   //     Процедура по какой мы определяем все места из участников, которые поставили Вин бет тайп
+
+
 
     }
 }
