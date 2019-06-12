@@ -23,7 +23,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
     String fourthCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[24]/a[1]";
 
     String xpathOfAllBetTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
-    String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placements')]";
+    String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placement')]";
 
 //    public void print(){
 //        System.out.println(getCurrencyTextUser1 ());
@@ -82,7 +82,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 
     public void getBetModelList(){
         List<WebElement> ListOfAllTableValues = actionsWithOurElements.getElements(xpathOfAllBetTableValues);
-        List<BetModel> BetModelList = new ArrayList<>();
+
 
         for ( WebElement element : ListOfAllTableValues) {
             BetModel betModel = new BetModel();
@@ -90,7 +90,7 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
             betModel.PAYOUT = Double.parseDouble(element.findElement(By.xpath(".//td[4]")).getText().replaceAll("\\$",""));
             betModel.BETTYPE = element.findElement(By.xpath(".//td[3]")).getText();
             betModel.CURRENCYNAME = element.findElement(By.xpath(".//td[5]/a[1]")).getText();
-            BetModelList.add(betModel);
+            betModelList.add(betModel);
             logger.info("wager = " + betModel.WAGER);
             logger.info("Payout = " + betModel.PAYOUT);
             logger.info("BetType = " + betModel.BETTYPE);
@@ -100,17 +100,115 @@ public class RacePageWhenItsFinishedStatus extends ParentAdminPage{
 
     public void getPlacementList(){
         List<WebElement> ListOfPlacementElements = actionsWithOurElements.getElements(xpathOfAllPlacementTableValues);
-        List<CurrenciesModel> CurrenciesModels = new ArrayList<>();
+
 
         for ( WebElement element : ListOfPlacementElements) {
             CurrenciesModel currenciesModel = new CurrenciesModel();
-            currenciesModel.PLACE = Integer.parseInt(element.findElement(By.xpath(".//span[contains(@class, 'placement-place')]")).getText().replaceAll("\\#",""));
+            String getString = element.findElement(By.xpath(".//span[contains(@class, 'placement-place')]")).getText();
+            currenciesModel.PLACE = Integer.parseInt(getString.replaceAll("\\# ",""));
             currenciesModel.SYMBOL = element.findElement(By.xpath(".//a[1]")).getText();
-            CurrenciesModels.add(currenciesModel);
+            currenciesModels.add(currenciesModel);
 
             logger.info("PLACE = " + currenciesModel.PLACE);
             logger.info("SYMBOL = " + currenciesModel.SYMBOL);
         }
+    }
+
+    public void winBetsCalculations(){
+
+        for ( BetModel bet : betModelList) {
+            CalculatePayout(bet);
+
+
+        }
+
+    }
+
+
+
+
+    public void CalculatePayout(BetModel bet)
+    {
+        var groupedParticipants = orderedParticipants
+                .GroupBy(x => x.Place)
+               .OrderBy(g => g.Key);
+
+        var winnersGroup = groupedParticipants.Take((int)this.Type + 1);
+        var losersGroup = groupedParticipants.Skip((int)this.Type + 1);
+
+        if ((!winnersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
+               && groupedParticipants.Count() > ((int)this.Type + 1))
+        {
+            winnersGroup = groupedParticipants.Skip((int)this.Type + 1).Take(1);
+            losersGroup = groupedParticipants.Skip((int)this.Type + 1 + 1);
+        }
+
+        if (this.Type == BetType.Win)
+        {
+            if ((!winnersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
+                   && groupedParticipants.Count() > ((int)this.Type + 2))
+            {
+                winnersGroup = groupedParticipants.Skip((int)this.Type + 2).Take(1);
+                losersGroup = groupedParticipants.Skip((int)this.Type + 2 + 1);
+            }
+        }
+
+        if ((!winnersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))) || // no winning bet or
+        (losersGroup.Count() == 0) ||
+                (!losersGroup.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))))// no losing bet
+        {
+            if (debug)
+                Debug.WriteLine($"CalculatePayout - {this.Type}, {this.User?.UserName}{User?.Id}, - Refund - Payout = {FullWager}");
+            else
+                Refund();
+        }
+           else
+        {
+            var winners = winnersGroup.SelectMany(g => g.ToList());
+            var calculatedOdd = CalculateOdds(Race, Type, Race.Bets, winners);
+
+            if (calculatedOdd > 0)
+            {
+                var payout = calculatedOdd * FullWager + FullWager;
+                if (debug)
+                {
+                    Debug.WriteLine($"CalculatePayout - {this.Type}, {this.User.UserName}{User?.Id}, - Payout = {payout}");
+                }
+                else
+                {
+                    User.AddPayout(Race, payout);
+                    Payout = payout;
+                }
+            }
+            else
+            {
+                if (debug)
+                    Debug.WriteLine($"CalculatePayout - {this.Type}, {this.User.UserName}{User?.Id}, - Payout = 0");
+                else
+                    Payout = 0;
+            }
+        }
+
+        await NotifyUser();
+    }
+
+
+
+
+    public virtual decimal CalculateOdds(Race race, BetType betType, IEnumerable<Bet> raceBets, IEnumerable<Participant> winners)
+    {
+        var winnerIds = winners.Select(x => (int?)x.Id);
+        if (winnerIds.Contains(Participant?.Id))
+        {
+            var bookmakerPercent = (1 - race.BookmakerPercent / 100);
+            var grossPool = race.GetPool(betType);
+            var securityPool = raceBets.Where(b => b.Type == betType && winnerIds.Contains(b.Participant?.Id)).Sum(b => b.Wager);
+            var netPool = grossPool * bookmakerPercent - securityPool;
+            var odd = netPool / securityPool;
+            return odd / ((int)betType + 1);
+        }
+
+        return 0;
     }
 
 
