@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     public RacePageWhenItsFinishedStatus(WebDriver webDriver) {
@@ -102,7 +103,6 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     public void getPlacementList(){
         List<WebElement> ListOfPlacementElements = actionsWithOurElements.getElements(xpathOfAllPlacementTableValues);
 
-
         for ( WebElement element : ListOfPlacementElements) {
             CurrenciesModel currenciesModel = new CurrenciesModel();
             String getString = element.findElement(By.xpath(".//span[contains(@class, 'placement-place')]")).getText();
@@ -116,129 +116,122 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     }
 
     public boolean winBetsCalculations(){
-
         for ( BetModel bet : betModelList) {
             calculatePayout(bet);
             if (bet.PAYOUT!= bet.CHECKPAYOUT){
                 return false;
             }
-
         }
 
         return true;
-
     }
 
-
-    
     
     public boolean checkBet(CurrenciesModel winner, BetModel bet){
         return false;
     }
 
+    public List<CurrenciesModel> getCurrenciesModelByPlace(List<CurrenciesModel> list, int place){
+        List<CurrenciesModel> newList = new ArrayList<>();
+        for ( CurrenciesModel item : list) {
+            if (item.PLACE == place)
+                newList.add(item);
+        }
 
+        return newList;
+    }
 
-    public double calculateOdds(CurrenciesModel winner, BetModel bet)
-    {
-//        var winnerIds = winners.Select(x => (int?)x.Id);
-//        if (winnerIds.Contains(Participant?.Id))
-//        {
-//            var bookmakerPercent = (1 - race.BookmakerPercent / 100);
-//            var grossPool = race.GetPool(betType);
-//            var securityPool = raceBets.Where(b => b.Type == betType && winnerIds.Contains(b.Participant?.Id)).Sum(b => b.Wager);
-//            var netPool = grossPool * bookmakerPercent - securityPool;
-//            var odd = netPool / securityPool;
-//            return odd / ((int)betType + 1);
-//        }
+    public List<CurrenciesModel> getCurrenciesModelAfterPlace(List<CurrenciesModel> list, int place){
+        List<CurrenciesModel> newList = new ArrayList<>();
+        for ( CurrenciesModel item : list) {
+            if (item.PLACE > place)
+                newList.add(item);
+        }
 
-        return 0;
+        return newList;
+    }
+
+    public boolean checkBetMath(List<CurrenciesModel> list, String betType){
+        for ( BetModel bet : betModelList) {
+            if (bet.BETTYPE ==  betType){
+                for ( CurrenciesModel item : list) {
+                    if (item.SYMBOL == bet.CURRENCYNAME)
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 
     public void calculatePayout(BetModel bet) {
-        List<CurrenciesModel> winners = currenciesModels.subList(0, 0);
-        List<CurrenciesModel> losers = currenciesModels.subList(1, currenciesModels.size() - 1);
-        Object string;
-//        if (Stream.of(winners).anyMatch(string::contains));
+        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, 1);
+        List<CurrenciesModel> losers = getCurrenciesModelAfterPlace(currenciesModels,1);
 
-
-        for (CurrenciesModel winner : winners) {
-
-
-//        if ((!winners.anyMatch(g => g.anyMatch(x => x.RaceBets.anyMatch(b => b.Type == this.Type))))
-//               && groupedParticipants.Count() > ((int)this.Type + 1))
-            if (checkBet(winner, bet)) {
-
-                winners = currenciesModels.subList(1, 1);
-                losers = currenciesModels.subList(2, currenciesModels.size() - 1);
-
-            }
-            if (bet.BETTYPE == "Win") {
-//            if ((!winners.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type))))
-//                   && groupedParticipants.Count() > ((int)this.Type + 2))
-                if (checkBet(winner, bet)) {
-                    {
-                        winners = currenciesModels.subList(2, 2);
-                        losers = currenciesModels.subList(3, currenciesModels.size() - 1);
-                    }
-                }
-
-
-//        var groupedParticipants = orderedParticipants
-//                .GroupBy(x => x.Place)
-//               .OrderBy(g => g.Key);
-
-//        var winnersGroup = groupedParticipants.Take((int)this.Type + 1);
-//        var losersGroup = groupedParticipants.Skip((int)this.Type + 1);
-
-
-                if (true)
-
-//        if ((!winners.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))) || // no winning bet or
-//        (losers.Count() == 0) ||
-//                (!losers.Any(g => g.Any(x => x.RaceBets.Any(b => b.Type == this.Type)))))// no losing bet
-                {
-                    bet.CHECKPAYOUT = bet.WAGER;
-                } else {
-//            var winners = winners.SelectMany(g => g.ToList());
-                    double calculatedOdd = calculateOdds(winner, bet);
-
-                    if (calculatedOdd > 0) {
-                        bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
-
-
-                    } else {
-
-                        bet.CHECKPAYOUT = 0;
-                    }
-                }
-
-            }
-
-
-//        System.out.println(getPayoutValueUser101());
-
-//    public String getPayoutValueWithoutDollarIconUser10(){
-//        String s = getPayoutValueUser10();
-//        return s.substring(s.lastIndexOf("$") + 1);
-//    }
-
-
-            //public String getTextNameCurrencyOfUser1(){return actionsWithOurElements.getText(xpathOfCurrencyUser1);
-
-//    public void lala2 (){
-//        System.out.println(getFirstCurrencyPercents());
-//    }
-
-//    public String percents [] = {getFourthCurrencyPercents(), getSecondCurrencyPercents(), getThirdCurrencyPercents(), getFourthCurrencyName()};
-//0
-//    public void lala (){
-//        System.out.println(percents);
-//    }
-
-
-            // String getFirstCurrencyPercentsrtr = getFirstCurrencyWholeString();
-            // String str = getFirstCurrencyPercents.substring(getFirstCurrencyPercents.lastIndexOf("(") + 1, getFirstCurrencyPercents.indexOf(")"));
+        if (!checkBetMath(winners, bet.BETTYPE)) {
+            winners = getCurrenciesModelByPlace(currenciesModels, 2);
+            losers = getCurrenciesModelAfterPlace(currenciesModels,2);
         }
+
+        if (bet.BETTYPE == "Win") {
+            if (!checkBetMath(winners, bet.BETTYPE)) {
+                winners = getCurrenciesModelByPlace(currenciesModels, 3);
+                losers = getCurrenciesModelAfterPlace(currenciesModels,3);
+            }
+        }
+
+        if (!checkBetMath(winners, bet.BETTYPE) || !checkBetMath(losers, bet.BETTYPE)) {
+            bet.CHECKPAYOUT = bet.WAGER;
+        } else {
+            double calculatedOdd = calculateOdds(winners, bet);
+
+            if (calculatedOdd > 0) {
+                bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
+            } else {
+                bet.CHECKPAYOUT = 0;
+            }
+        }
+    }
+
+    public double calculateOdds(List<CurrenciesModel> winners, BetModel bet) {
+        List<String> winnerSymbols = new ArrayList<>();
+        for ( CurrenciesModel item : winners) {
+            if (item.SYMBOL == bet.BETTYPE){
+                winnerSymbols.add(item.SYMBOL);
+            }
+        }
+
+        double bookmakerPercent = 0;
+
+        int betCoef = 1; // win
+        if (bet.BETTYPE == "Win")
+            betCoef = 1;
+        else if (bet.BETTYPE == "Place")
+            betCoef = 2;
+        else if (bet.BETTYPE == "Show")
+            betCoef = 3;
+
+        if (winnerSymbols.size() > 0) {
+            double bookPercent = (1 - bookmakerPercent / 100);
+            double grossPool = getPool(bet.BETTYPE, null);
+            double securityPool = getPool(bet.BETTYPE, winnerSymbols);
+            double netPool = grossPool * bookPercent - securityPool;
+            double odd = netPool / securityPool;
+            return odd / betCoef;
+        }
+
+        return 0;
+    }
+
+    public double getPool(String betType, List<String> currencySymbols){
+        double result = 0;
+        for ( BetModel bet : betModelList) {
+            if (bet.BETTYPE == betType && (currencySymbols == null || currencySymbols.contains(bet.CURRENCYNAME))){
+                result += bet.WAGER;
+            }
+        }
+
+        return result;
     }
 }
