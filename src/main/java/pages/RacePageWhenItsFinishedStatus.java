@@ -12,17 +12,18 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     public RacePageWhenItsFinishedStatus(WebDriver webDriver) {
         super(webDriver);
     }
+
     Logger logger = Logger.getLogger(getClass());
 
-    String firstCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[21]";
-    String secondCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[22]";
-    String thirdCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[23]";
-    String fourthCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[24]";
-
-    String firstCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[21]/a[1]";
-    String secondCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[22]/a[1]";
-    String thirdCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[23]/a[1]";
-    String fourthCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[24]/a[1]";
+//    String firstCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[21]";
+//    String secondCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[22]";
+//    String thirdCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[23]";
+//    String fourthCurrencyWholeString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[24]";
+//
+//    String firstCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[21]/a[1]";
+//    String secondCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[22]/a[1]";
+//    String thirdCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[23]/a[1]";
+//    String fourthCurrencyOnlyNameString = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[24]/a[1]";
 
     String xpathOfAllBetTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
     String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placement')]";
@@ -35,42 +36,42 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
 //        return actionsWithOurElements.getText(xpathOfUser4);
 //}
 
-    public String getFirstCurrencyWholeString(){ return actionsWithOurElements.getText(firstCurrencyWholeString); }
-    public String getSecondCurrencyWholeString(){
-        return actionsWithOurElements.getText(secondCurrencyWholeString);
-    }
-    public String getThirdCurrencyWholeString(){ return actionsWithOurElements.getText(thirdCurrencyWholeString); }
-    public String getFourthCurrencyWholeString(){
-        return actionsWithOurElements.getText(fourthCurrencyWholeString);
-    }
-
-
-    public String getFirstCurrencyName(){
-        return actionsWithOurElements.getText(firstCurrencyOnlyNameString);
-    }
-    public String getSecondCurrencyName(){
-        return actionsWithOurElements.getText(secondCurrencyOnlyNameString);
-    }
-    public String getThirdCurrencyName(){ return actionsWithOurElements.getText(thirdCurrencyOnlyNameString);}
-    public String getFourthCurrencyName(){ return actionsWithOurElements.getText(fourthCurrencyOnlyNameString);}
-
-
-    public String getFirstCurrencyPlaceNumberBeforeName(){
-        String s = getFirstCurrencyWholeString();
-        return s.substring(1, Math.min(s.length(), 2));
-    }
-    public String getSecondCurrencyPlaceNumberBeforeName(){
-        String s = getSecondCurrencyWholeString();
-        return s.substring(1, Math.min(s.length(), 2));
-    }
-    public String getThirdCurrencyPlaceNumberBeforeName(){
-        String s = getThirdCurrencyWholeString();
-        return s.substring(1, Math.min(s.length(), 2));
-    }
-    public String getFourthCurrencyPlaceNumberBeforeName(){
-        String s = getFourthCurrencyWholeString();
-        return s.substring(1, Math.min(s.length(), 2));
-    }
+//    public String getFirstCurrencyWholeString(){ return actionsWithOurElements.getText(firstCurrencyWholeString); }
+//    public String getSecondCurrencyWholeString(){
+//        return actionsWithOurElements.getText(secondCurrencyWholeString);
+//    }
+//    public String getThirdCurrencyWholeString(){ return actionsWithOurElements.getText(thirdCurrencyWholeString); }
+//    public String getFourthCurrencyWholeString(){
+//        return actionsWithOurElements.getText(fourthCurrencyWholeString);
+//    }
+//
+//
+//    public String getFirstCurrencyName(){
+//        return actionsWithOurElements.getText(firstCurrencyOnlyNameString);
+//    }
+//    public String getSecondCurrencyName(){
+//        return actionsWithOurElements.getText(secondCurrencyOnlyNameString);
+//    }
+//    public String getThirdCurrencyName(){ return actionsWithOurElements.getText(thirdCurrencyOnlyNameString);}
+//    public String getFourthCurrencyName(){ return actionsWithOurElements.getText(fourthCurrencyOnlyNameString);}
+//
+//
+//    public String getFirstCurrencyPlaceNumberBeforeName(){
+//        String s = getFirstCurrencyWholeString();
+//        return s.substring(1, Math.min(s.length(), 2));
+//    }
+//    public String getSecondCurrencyPlaceNumberBeforeName(){
+//        String s = getSecondCurrencyWholeString();
+//        return s.substring(1, Math.min(s.length(), 2));
+//    }
+//    public String getThirdCurrencyPlaceNumberBeforeName(){
+//        String s = getThirdCurrencyWholeString();
+//        return s.substring(1, Math.min(s.length(), 2));
+//    }
+//    public String getFourthCurrencyPlaceNumberBeforeName(){
+//        String s = getFourthCurrencyWholeString();
+//        return s.substring(1, Math.min(s.length(), 2));
+//    }
 //    public String getFifthCurrencyPlaceNumberBeforeName(){
 //        String s = getFifthCurrencyWholeString();
 //        return s.substring(1, Math.min(s.length(), 2));
@@ -93,10 +94,10 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
             betModel.BETTYPE = element.findElement(By.xpath(".//td[3]")).getText();
             betModel.CURRENCYNAME = element.findElement(By.xpath(".//td[5]/a[1]")).getText();
             betModelList.add(betModel);
-            logger.info("wager = " + betModel.WAGER);
-            logger.info("Payout = " + betModel.PAYOUT);
-            logger.info("BetType = " + betModel.BETTYPE);
-            logger.info("Currency = " + betModel.CURRENCYNAME);
+//            logger.info("wager = " + betModel.WAGER);
+//            logger.info("Payout = " + betModel.PAYOUT);
+//            logger.info("BetType = " + betModel.BETTYPE);
+//            logger.info("Currency = " + betModel.CURRENCYNAME);
         }
     }
 
@@ -109,9 +110,8 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
             currenciesModel.PLACE = Integer.parseInt(getString.replaceAll("\\# ",""));
             currenciesModel.SYMBOL = element.findElement(By.xpath(".//a[1]")).getText();
             currenciesModels.add(currenciesModel);
-
-            logger.info("PLACE = " + currenciesModel.PLACE);
-            logger.info("SYMBOL = " + currenciesModel.SYMBOL);
+//            logger.info("PLACE = " + currenciesModel.PLACE);
+//            logger.info("SYMBOL = " + currenciesModel.SYMBOL);
         }
     }
 
@@ -119,16 +119,11 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         for ( BetModel bet : betModelList) {
             calculatePayout(bet);
             if (bet.PAYOUT!= bet.CHECKPAYOUT){
+                logger.info("FAILED: " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
                 return false;
             }
         }
-
         return true;
-    }
-
-    
-    public boolean checkBet(CurrenciesModel winner, BetModel bet){
-        return false;
     }
 
     public List<CurrenciesModel> getCurrenciesModelByPlace(List<CurrenciesModel> list, int place){
@@ -137,7 +132,6 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
             if (item.PLACE == place)
                 newList.add(item);
         }
-
         return newList;
     }
 
@@ -147,57 +141,64 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
             if (item.PLACE > place)
                 newList.add(item);
         }
-
         return newList;
     }
 
-    public boolean checkBetMath(List<CurrenciesModel> list, String betType){
+    public boolean checkBetMatch(List<CurrenciesModel> list, String betType){
         for ( BetModel bet : betModelList) {
-            if (bet.BETTYPE ==  betType){
+            if (bet.BETTYPE.equals(betType)){
                 for ( CurrenciesModel item : list) {
-                    if (item.SYMBOL == bet.CURRENCYNAME)
+                    if (item.SYMBOL.equals(bet.CURRENCYNAME))
                         return true;
                 }
             }
         }
-
         return false;
     }
 
 
     public void calculatePayout(BetModel bet) {
-        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, 1);
-        List<CurrenciesModel> losers = getCurrenciesModelAfterPlace(currenciesModels,1);
+        int betTypeIndex = 1; // win
+        if (bet.BETTYPE.equals("Win"))
+            betTypeIndex = 1;
+        else if (bet.BETTYPE.equals("Place"))
+            betTypeIndex = 2;
+        else if (bet.BETTYPE.equals("Show"))
+            betTypeIndex = 3;
 
-        if (!checkBetMath(winners, bet.BETTYPE)) {
-            winners = getCurrenciesModelByPlace(currenciesModels, 2);
-            losers = getCurrenciesModelAfterPlace(currenciesModels,2);
+        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex);
+        List<CurrenciesModel> losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex);
+
+        if (!checkBetMatch(winners, bet.BETTYPE)) {
+            winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 1);
+            losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex + 1);
         }
 
-        if (bet.BETTYPE == "Win") {
-            if (!checkBetMath(winners, bet.BETTYPE)) {
-                winners = getCurrenciesModelByPlace(currenciesModels, 3);
-                losers = getCurrenciesModelAfterPlace(currenciesModels,3);
+        if (bet.BETTYPE.equals("Win")) {
+            if (!checkBetMatch(winners, bet.BETTYPE)) {
+                winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 2);
+                losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex + 2);
             }
         }
 
-        if (!checkBetMath(winners, bet.BETTYPE) || !checkBetMath(losers, bet.BETTYPE)) {
+        if (!checkBetMatch(winners, bet.BETTYPE) || !checkBetMatch(losers, bet.BETTYPE)) {
             bet.CHECKPAYOUT = bet.WAGER;
+            logger.info("REFUND: " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
         } else {
             double calculatedOdd = calculateOdds(winners, bet);
-
             if (calculatedOdd > 0) {
                 bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
             } else {
                 bet.CHECKPAYOUT = 0;
             }
+            logger.info("ODD: " + calculatedOdd + ", " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
         }
     }
 
     public double calculateOdds(List<CurrenciesModel> winners, BetModel bet) {
         List<String> winnerSymbols = new ArrayList<>();
         for ( CurrenciesModel item : winners) {
-            if (item.SYMBOL == bet.BETTYPE){
+            if (item.SYMBOL.equals(bet.CURRENCYNAME)){
                 winnerSymbols.add(item.SYMBOL);
             }
         }
@@ -205,11 +206,11 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         double bookmakerPercent = 0;
 
         int betCoef = 1; // win
-        if (bet.BETTYPE == "Win")
+        if (bet.BETTYPE.equals("Win"))
             betCoef = 1;
-        else if (bet.BETTYPE == "Place")
+        else if (bet.BETTYPE.equals("Place"))
             betCoef = 2;
-        else if (bet.BETTYPE == "Show")
+        else if (bet.BETTYPE.equals("Show"))
             betCoef = 3;
 
         if (winnerSymbols.size() > 0) {
@@ -227,7 +228,7 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
     public double getPool(String betType, List<String> currencySymbols){
         double result = 0;
         for ( BetModel bet : betModelList) {
-            if (bet.BETTYPE == betType && (currencySymbols == null || currencySymbols.contains(bet.CURRENCYNAME))){
+            if (bet.BETTYPE.equals(betType) && (currencySymbols == null || currencySymbols.contains(bet.CURRENCYNAME))){
                 result += bet.WAGER;
             }
         }
