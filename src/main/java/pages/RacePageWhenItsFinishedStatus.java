@@ -126,10 +126,10 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         return true;
     }
 
-    public List<CurrenciesModel> getCurrenciesModelByPlace(List<CurrenciesModel> list, int place){
+    public List<CurrenciesModel> getCurrenciesModelByPlace(List<CurrenciesModel> list, int skip, int take){
         List<CurrenciesModel> newList = new ArrayList<>();
         for ( CurrenciesModel item : list) {
-            if (item.PLACE == place)
+            if (item.PLACE > skip && item.PLACE <= skip+take)
                 newList.add(item);
         }
         return newList;
@@ -166,28 +166,28 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         else if (bet.BETTYPE.equals("Show"))
             betTypeIndex = 3;
 
-        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex);
+        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, 0, betTypeIndex);
         List<CurrenciesModel> losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex);
 
         if (!checkBetMatch(winners, bet.BETTYPE)) {
-            winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 1);
+            winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex, 1);
             losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex + 1);
         }
 
         if (bet.BETTYPE.equals("Win")) {
             if (!checkBetMatch(winners, bet.BETTYPE)) {
-                winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 2);
+                winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 1, 1);
                 losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex + 2);
             }
         }
 
         if (!checkBetMatch(winners, bet.BETTYPE) || !checkBetMatch(losers, bet.BETTYPE)) {
-            bet.CHECKPAYOUT = bet.WAGER;
+            bet.CHECKPAYOUT = (double)Math.round(bet.WAGER * 100d) / 100d;
             logger.info("REFUND: " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
         } else {
             double calculatedOdd = calculateOdds(winners, bet);
             if (calculatedOdd > 0) {
-                bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
+                bet.CHECKPAYOUT = (double)Math.round((calculatedOdd * bet.WAGER + bet.WAGER) * 100d) / 100d;
             } else {
                 bet.CHECKPAYOUT = 0;
             }
