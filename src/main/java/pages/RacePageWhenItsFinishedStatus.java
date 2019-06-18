@@ -213,10 +213,11 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
             betCoef = 3;
 
         if (winnerSymbols.size() > 0) {
-            double bookPercent = (1 - bookmakerPercent / 100);
+            double bookPercent = Math.round((1 - bookmakerPercent / 100) * 100d) / 100d;
             double grossPool = getPool(bet.BETTYPE, null);
             double securityPool = getPool(bet.BETTYPE, winnerSymbols);
-            double netPool = grossPool * bookPercent - securityPool;
+            double netPool = Math.round((grossPool * bookPercent - securityPool) * 100d) / 100d;
+            //double odd = Math.round(netPool / securityPool * 100d) / 100d;
             double odd = netPool / securityPool;
             return odd / betCoef;
         }
