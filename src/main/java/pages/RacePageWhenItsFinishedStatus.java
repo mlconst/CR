@@ -27,6 +27,7 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
 
     String xpathOfAllBetTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
     String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placement')]";
+    String xpathBookmakerPercent = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[9]";
 
 //    public void print(){
 //        System.out.println(getCurrencyTextUser1 ());
@@ -126,10 +127,10 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         return true;
     }
 
-    public List<CurrenciesModel> getCurrenciesModelByPlace(List<CurrenciesModel> list, int place){
+    public List<CurrenciesModel> getCurrenciesModelByPlace(List<CurrenciesModel> list, int skip, int take){
         List<CurrenciesModel> newList = new ArrayList<>();
         for ( CurrenciesModel item : list) {
-            if (item.PLACE == place)
+            if (item.PLACE > skip && item.PLACE <= skip+take)
                 newList.add(item);
         }
         return newList;
@@ -166,28 +167,28 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         else if (bet.BETTYPE.equals("Show"))
             betTypeIndex = 3;
 
-        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex);
+        List<CurrenciesModel> winners = getCurrenciesModelByPlace(currenciesModels, 0, betTypeIndex);
         List<CurrenciesModel> losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex);
 
         if (!checkBetMatch(winners, bet.BETTYPE)) {
-            winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 1);
+            winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex, 1);
             losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex + 1);
         }
 
         if (bet.BETTYPE.equals("Win")) {
             if (!checkBetMatch(winners, bet.BETTYPE)) {
-                winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 2);
+                winners = getCurrenciesModelByPlace(currenciesModels, betTypeIndex + 1, 1);
                 losers = getCurrenciesModelAfterPlace(currenciesModels,betTypeIndex + 2);
             }
         }
 
         if (!checkBetMatch(winners, bet.BETTYPE) || !checkBetMatch(losers, bet.BETTYPE)) {
-            bet.CHECKPAYOUT = bet.WAGER;
+            bet.CHECKPAYOUT = (double)Math.floor(bet.WAGER * 100d) / 100d;
             logger.info("REFUND: " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
         } else {
             double calculatedOdd = calculateOdds(winners, bet);
             if (calculatedOdd > 0) {
-                bet.CHECKPAYOUT = calculatedOdd * bet.WAGER + bet.WAGER;
+                bet.CHECKPAYOUT = (double)Math.floor((calculatedOdd * bet.WAGER + bet.WAGER) * 100d) / 100d;
             } else {
                 bet.CHECKPAYOUT = 0;
             }
@@ -202,8 +203,6 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
                 winnerSymbols.add(item.SYMBOL);
             }
         }
-
-        double bookmakerPercent = 0;
 
         int betCoef = 1; // win
         if (bet.BETTYPE.equals("Win"))
@@ -234,5 +233,10 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         }
 
         return result;
+    }
+
+
+    public void getBookmakerPercent() {
+        bookmakerPercent = Double.parseDouble(actionsWithOurElements.getText(xpathBookmakerPercent));
     }
 }

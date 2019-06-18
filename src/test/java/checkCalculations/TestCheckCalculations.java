@@ -3,20 +3,24 @@ package checkCalculations;
 import org.junit.Test;
 import parentTest.ParentTest;
 
+
 public class TestCheckCalculations extends ParentTest {
     @Test
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted(newRaceName); //(newRaceName);
+        openRaceByID();
+    //    racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("big number of currencies 2"); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
 
 //        racePageWhenItsFinishedStatus.print();
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
+
+        racePageWhenItsFinishedStatus.getBookmakerPercent();
         racePageWhenItsFinishedStatus.getBetModelList();
         racePageWhenItsFinishedStatus.getPlacementList();
 //        racePageWhenItsFinishedStatus.winBetsCalculations();
-        checkExpectedResult("Calculations for win bets ar failed ", racePageWhenItsFinishedStatus.winBetsCalculations());
+        checkExpectedResult("Calculations for win bets are failed ", racePageWhenItsFinishedStatus.winBetsCalculations());
 
 //
 //        racePageWhenItsFinishedStatus.getFirstCurrencyWholeString();
