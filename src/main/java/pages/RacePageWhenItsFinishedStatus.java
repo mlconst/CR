@@ -182,12 +182,12 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         }
 
         if (!checkBetMatch(winners, bet.BETTYPE) || !checkBetMatch(losers, bet.BETTYPE)) {
-            bet.CHECKPAYOUT = (double)Math.round(bet.WAGER * 100d) / 100d;
+            bet.CHECKPAYOUT = (double)Math.floor(bet.WAGER * 100d) / 100d;
             logger.info("REFUND: " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
         } else {
             double calculatedOdd = calculateOdds(winners, bet);
             if (calculatedOdd > 0) {
-                bet.CHECKPAYOUT = (double)Math.round((calculatedOdd * bet.WAGER + bet.WAGER) * 100d) / 100d;
+                bet.CHECKPAYOUT = (double)Math.floor((calculatedOdd * bet.WAGER + bet.WAGER) * 100d) / 100d;
             } else {
                 bet.CHECKPAYOUT = 0;
             }
