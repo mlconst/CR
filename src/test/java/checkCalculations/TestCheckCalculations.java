@@ -15,6 +15,8 @@ public class TestCheckCalculations extends ParentTest {
 
 //        racePageWhenItsFinishedStatus.print();
 //        racePageWhenItsFinishedStatus.getFourthCurrencyName();
+
+        racePageWhenItsFinishedStatus.getBookmakerPercent();
         racePageWhenItsFinishedStatus.getBetModelList();
         racePageWhenItsFinishedStatus.getPlacementList();
 //        racePageWhenItsFinishedStatus.winBetsCalculations();

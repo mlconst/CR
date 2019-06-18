@@ -27,6 +27,7 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
 
     String xpathOfAllBetTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
     String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placement')]";
+    String xpathBookmakerPercent = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[9]";
 
 //    public void print(){
 //        System.out.println(getCurrencyTextUser1 ());
@@ -203,8 +204,6 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
             }
         }
 
-        double bookmakerPercent = 0;
-
         int betCoef = 1; // win
         if (bet.BETTYPE.equals("Win"))
             betCoef = 1;
@@ -234,5 +233,10 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         }
 
         return result;
+    }
+
+
+    public void getBookmakerPercent() {
+        bookmakerPercent = Double.parseDouble(actionsWithOurElements.getText(xpathBookmakerPercent));
     }
 }
