@@ -9,8 +9,8 @@ public class TestCheckCalculations extends ParentTest {
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        openRaceByID(25002);
-    //    racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted("big number of currencies 2"); //(newRaceName);
+        //openRaceByID(25002);
+        racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted(newRaceName); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
 
 //        racePageWhenItsFinishedStatus.print();
