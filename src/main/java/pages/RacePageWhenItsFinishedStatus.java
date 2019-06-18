@@ -27,6 +27,7 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
 
     String xpathOfAllBetTableValues = "/html[1]/body[1]/div[2]/form[1]/table[1]/tbody[1]/tr";
     String xpathOfAllPlacementTableValues = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[contains(@class, 'dd-placement')]";
+    String xpathBookmakerPercent = "/html[1]/body[1]/div[2]/form[1]/div[1]/dl[1]/dd[9]";
 
 //    public void print(){
 //        System.out.println(getCurrencyTextUser1 ());
@@ -182,12 +183,12 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         }
 
         if (!checkBetMatch(winners, bet.BETTYPE) || !checkBetMatch(losers, bet.BETTYPE)) {
-            bet.CHECKPAYOUT = (double)Math.round(bet.WAGER * 100d) / 100d;
+            bet.CHECKPAYOUT = (double)Math.floor(bet.WAGER * 100d) / 100d;
             logger.info("REFUND: " + bet.CURRENCYNAME + ", " + bet.BETTYPE +",  " + "WAGER:" + bet.WAGER + ", " + "PAYOUT:" + bet.PAYOUT + ", " + "CHECKPAYOUT:" + bet.CHECKPAYOUT );
         } else {
             double calculatedOdd = calculateOdds(winners, bet);
             if (calculatedOdd > 0) {
-                bet.CHECKPAYOUT = (double)Math.round((calculatedOdd * bet.WAGER + bet.WAGER) * 100d) / 100d;
+                bet.CHECKPAYOUT = (double)Math.floor((calculatedOdd * bet.WAGER + bet.WAGER) * 100d) / 100d;
             } else {
                 bet.CHECKPAYOUT = 0;
             }
@@ -202,8 +203,6 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
                 winnerSymbols.add(item.SYMBOL);
             }
         }
-
-        double bookmakerPercent = 0;
 
         int betCoef = 1; // win
         if (bet.BETTYPE.equals("Win"))
@@ -234,5 +233,10 @@ public class RacePageWhenItsFinishedStatus<winner> extends ParentAdminPage{
         }
 
         return result;
+    }
+
+
+    public void getBookmakerPercent() {
+        bookmakerPercent = Double.parseDouble(actionsWithOurElements.getText(xpathBookmakerPercent));
     }
 }

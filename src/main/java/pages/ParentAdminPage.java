@@ -16,6 +16,7 @@ public class ParentAdminPage {
 
     protected List<CurrenciesModel> currenciesModels;
     protected List<BetModel> betModelList;
+    Double bookmakerPercent;
 
     public ParentAdminPage(WebDriver webDriver) {
         this.webDriver = webDriver;
