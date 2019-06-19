@@ -9,7 +9,7 @@ public class TestCheckCalculations extends ParentTest {
     public void testCheckCalculations() throws Exception {
 
         validLoginToAdmin();
-        //openRaceByID(25002);
+      //  openRaceByID(25002);
         racesAdminPage.clickOnEditButtonOfTheParticularRaceWhenItsStarted(newRaceName); //(newRaceName);
         racesAdminPage.refreshUntilRaceIsFinished();
 
