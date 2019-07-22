@@ -50,7 +50,7 @@ public class ParentTest {
 
     }
 
-    protected void openRaceByID() {webDriver.get("http://stage.cryptorunadmin.softermii.co/admin/cryptocurrencies/details/25002");}
+    protected void openRaceByID(int raceId) {webDriver.get("http://stage.cryptorunadmin.softermii.co/admin/cryptocurrencies/details/" + raceId);}
 
 
 

@@ -12,6 +12,9 @@ public class CreateNewRacePage extends ParentAdminPage{
     @FindBy(name="Name")
     private WebElement inputRaceName;
 
+    @FindBy (id="BookmakerPercent")
+    private WebElement inputBookmakerPercent;
+
     @FindBy(id="HoursMin")
     private WebElement inputRaceDuration;
 
@@ -77,6 +80,10 @@ public class CreateNewRacePage extends ParentAdminPage{
 
     public void enterNewRaceNameInToInput(String raceName) {
         actionsWithOurElements.enterTextInToElement(inputRaceName, raceName);
+    }
+
+    public void enterBookmakerPercentInToInput(String bookmakerPercent) {
+        actionsWithOurElements.enterTextInToElement(inputBookmakerPercent, bookmakerPercent);
     }
 
     public void enterRaceDurationTimeInToInput(String raceNameDurationTime) {

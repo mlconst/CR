@@ -6,6 +6,7 @@ import parentTest.ParentTest;
 public class TestCreateRace extends ParentTest {
 
 
+    final String bookmakerPercent = "7";
     final String raceDuration = "00:01";
     final String bettingDuration = "00:01";
     final String minBotsValue = "2";
@@ -17,6 +18,7 @@ public class TestCreateRace extends ParentTest {
         validLoginToAdmin();
         racesAdminPage.clickOnCreateButtoninTheTop();
         createNewRacePage.enterNewRaceNameInToInput(newRaceName);
+        createNewRacePage.enterBookmakerPercentInToInput(bookmakerPercent);
         createNewRacePage.enterRaceDurationTimeInToInput(raceDuration);
         createNewRacePage.enterBettingDurationTimeInToInput(bettingDuration);
 

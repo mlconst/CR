@@ -38,7 +38,7 @@ public class RacesAdminPage extends ParentAdminPage {
     }
 
     public void clickOnCreateButtoninTheTop() {
-        actionsWithOurElements.clickOnElement(createButton);
+        actionsWithOurElements.clickOnElement5SecWait(createButton);
     }
 
     public void clickOnEditButtonOfTheParticularRace(String raceName) {
